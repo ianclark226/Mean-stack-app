@@ -5,9 +5,13 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var tasks = require('./routes/tasks');
 
+var connectDB = require('./DB/conncection');
+
 var port = 3000;
 
 var app = express();
+
+connectDB();
 
 //View Engine
 
@@ -26,6 +30,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', index);
 app.use('/api', tasks);
+app.use('/api/taskModel', require('./Api/Task'));
 
 app.listen(port, function() {
     console.log('server started on port' +port);
